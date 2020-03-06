@@ -1,0 +1,19 @@
+<div class="page-header">
+  <%= link_to users_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Volver
+  <% end %>
+  <h4>Nueva Cuenta</h4>
+</div>
+<ol class="breadcrumb">
+  <li>
+    <%= link_to users_path do %>
+        <%= fa_icon "user", text: "Cuentas" %>
+    <% end %>
+  </li>
+  <li class="active">
+    Nueva Cuenta
+  </li>
+</ol>
+
+<%= render 'form' %>

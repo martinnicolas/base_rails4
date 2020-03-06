@@ -1,0 +1,63 @@
+<div class="page-header">
+  <%= link_to users_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Volver
+  <% end %>
+  <%= link_to edit_user_path(@user), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Editar
+  <% end %>
+  <h4>Ver Cuenta</h4>
+</div>
+<ol class="breadcrumb">
+  <li>
+    <%= link_to users_path do %>
+        <%= fa_icon "user", text: "Cuentas" %>
+    <% end %>
+  </li>
+  <li class="active">
+    Ver Cuenta
+  </li>
+</ol>
+
+<legend><small>Empleado</small></legend>
+<dl class="dl-horizontal">
+  <dt>Tipo de documento:</dt>
+  <dd><%= @user.empleado.tipo_documento %></dd>
+
+  <dt>N° de documento:</dt>
+  <dd><%= @user.empleado.nro_documento %></dd>
+
+  <dt>N° de legajo:</dt>
+  <dd><%= @user.empleado.nro_legajo %></dd>
+
+  <dt>Apellido:</dt>
+  <dd><%= @user.empleado.apellido %></dd>
+
+  <dt>Nombre:</dt>
+  <dd><%= @user.empleado.nombre %></dd>
+</dl>
+
+<legend><small>Cuenta</small></legend>
+<dl class="dl-horizontal">
+  <dt>Email:</dt>
+  <dd><%= @user.email %></dd>
+  
+  <dt>Último acceso:</dt>
+  <dd><%= @user.last_sign_in_at %></dd>
+
+  <dt>IP último acceso:</dt>
+  <dd><%= @user.last_sign_in_ip %></dd>
+
+  <dt>Cantidad de accesos:</dt>
+  <dd><%= @user.sign_in_count %></dd>
+</dl>
+
+<legend><small>Roles</small></legend>
+<div class="col-sm-4">
+  <ul class="list-group">
+    <% @user.roles.each do |r|%>
+      <li class="list-group-item"><%= r.descripcion %></li>
+    <% end %>
+  </ul>
+</div>

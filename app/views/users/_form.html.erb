@@ -1,0 +1,76 @@
+<%= form_for(@user, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+      <h5><b><%= fa_icon "exclamation-circle", text: "Atención! Ocurrieron los siguientes errores" %></b></h5>
+      <ul>
+      <% @user.errors.messages.values.each do |msg| %>
+        <% msg.each do  |m| %>
+          <li><%= m %></li>
+        <%end %>
+      <% end %>
+      </ul>      
+    </div>
+  <% end %>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= fa_icon "male" %> Datos del empleado</h3>
+    </div>
+    <div class="panel-body">  
+
+      <%= f.fields_for :empleado do |e| %>
+        <div class="row">
+          <%= e.label :nro_legajo, "Número de legajo",class: "col-sm-2 control-label" %>
+          <div class="col-sm-2">
+            <%= e.number_field :nro_legajo, :class => "form-control" %>
+          </div>
+          <%= e.label :tipo_documento_id, "Tipo de documento", class: "col-sm-2 control-label" %>
+          <div class="col-sm-2">
+            <%= e.collection_select :tipo_documento_id, TipoDocumento.all, :id, :to_s, {prompt: false, selected: TipoDocumento.where(descripcion: "DNI").first.id}, {:class => "form-control"} %>
+          </div>
+        </div>
+        <div class="row">
+          <%= e.label :nro_documento, "N° de documento", class: "col-sm-2 control-label" %>
+          <div class="col-sm-2">
+            <%= e.text_field :nro_documento, :class => "form-control" %>
+          </div>
+          <%= e.label :apellido, class: "col-sm-2 control-label" %>
+          <div class="col-sm-4">
+            <%= e.text_field :apellido, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="row">
+          <%= e.label :nombre, class: "col-sm-2 control-label" %>
+          <div class="col-sm-4">
+            <%= e.text_field :nombre, :class => "form-control" %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>    
+  </div>
+
+  
+    <div class="col-md-6">
+      <%= render :partial => '/devise/registrations/form' , :locals => {:f => f} %>
+    </div>
+
+    <div class="col-md-6">
+      <legend><small>Roles</small></legend>
+      <div class="form-group">
+        <ul class="list-group">
+          <%=  build_role_list('/users/role_checkbox') %>
+        </ul>
+      </div>
+    </div>
+  
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit :class => "btn btn-primary", :value => "Guardar" %>
+    </div>
+  </div>
+
+<% end %>
